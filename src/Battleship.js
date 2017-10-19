@@ -43,7 +43,7 @@ class Battleship extends Component {;
       <div className="playersView">
         <div className="playerBoard">
           {this.state.playerBoard.map((cell, index) => {
-            return <div className="cells" data-cell-id={index}>{cell}</div>;
+            return <div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>;
           })}
         </div>
       </div>
