@@ -3,7 +3,26 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.playersView{
+  width: 900px;
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+}
+.playersView h1 {
+  width: 100%;
+  text-align: center;
+}
 .playerBoard{
+  display: flex;
+  width: 400px;
+  height: 400px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.playerComputerBoard {
   display: flex;
   width: 400px;
   height: 400px;
