@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import Menu from './Menu';
 
-class Battleship extends Component {;
+class Battleship extends Component {
   constructor(props) {
     super(props);
     this.fire = this.fire.bind(this);
@@ -49,18 +50,21 @@ class Battleship extends Component {;
   }
   render(){
     return(
-      <div className="playersView">
-        <div className="playerBoard">
-          <h1>Your Board</h1>
-          {this.state.playerBoard.map((cell, index) => {
-            return <div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>;
-          })}
-        </div>
-        <div className="playerComputerBoard">
-          <h1>Your Attacks</h1>
-          {this.state.computerBoard.map((cell, index) => {
-            return <div onClick={this.fire} className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>;
-          })}
+      <div className="window">
+        <Menu ships={this.state.playerShips}/>
+        <div className="playersView">
+          <div className="playerBoard">
+            <h1>Your Board</h1>
+            {this.state.playerBoard.map((cell, index) => {
+              return <div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>;
+            })}
+          </div>
+          <div className="playerComputerBoard">
+            <h1>Your Attacks</h1>
+            {this.state.computerBoard.map((cell, index) => {
+              return <div onClick={this.fire} className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>;
+            })}
+          </div>
         </div>
       </div>
     );
