@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class Battleship extends Component {;
   constructor(props) {
     super(props);
+    this.fire = this.fire.bind(this);
     this.state= {
       playerTurn: 0,
       playerShips: {
@@ -38,6 +39,14 @@ class Battleship extends Component {;
       ]
     }
   }
+
+  fire(e) {
+    if (this.state.computerBoard[e.target.getAttribute("data-cell-id")] === '') {
+      e.target.classList.add('miss');
+    } else {
+      e.target.classList.add('hit');
+    };
+  }
   render(){
     return(
       <div className="playersView">
@@ -50,7 +59,7 @@ class Battleship extends Component {;
         <div className="playerComputerBoard">
           <h1>Your Attacks</h1>
           {this.state.computerBoard.map((cell, index) => {
-            return <div className="cells" key= {`computerBoard${index}`} data-cell-id={index}>{cell}</div>;
+            return <div onClick={this.fire} className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>;
           })}
         </div>
       </div>

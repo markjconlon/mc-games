@@ -37,3 +37,9 @@ body {
   height: 40px;
   border: 2px solid black;
 }
+.hit{
+  background-color: red;
+}
+.miss{
+  background-color: blue;
+}
