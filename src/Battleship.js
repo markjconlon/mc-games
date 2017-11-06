@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import Menu from './Menu';
 
 class Battleship extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.fire = this.fire.bind(this);
+    this.pickShip = this.pickShip.bind(this);
     this.state= {
       playerTurn: 0,
+      selectedShip: {},
       playerShips: {
-        aircraftCarrier: { length: 5, symbol: 'L' },
-        battleship: { length: 4, symbol: 'M' },
-        submarine: { length: 3, symbol: 'N' },
-        cruiser: { length: 3, symbol: 'O' },
-        destroyer: { length: 2, symbol: 'P' }
+        // probably need to leave this open and add ships in as we go.
+        aircraftCarrier: { length: 5, symbol: 'L', isPlaced: false },
+        battleship: { length: 4, symbol: 'M', isPlaced: false },
+        submarine: { length: 3, symbol: 'N', isPlaced: false },
+        cruiser: { length: 3, symbol: 'O',isPlaced: false },
+        destroyer: { length: 2, symbol: 'P',isPlaced: false }
       },
       playerBoard: [
         '', '', '', '', '', '', '', '', '', '',
@@ -40,7 +43,13 @@ class Battleship extends Component {
       ]
     }
   }
-
+  pickShip(name) {
+    const newShip = this.state.playerShips[name]
+    console.log(newShip);
+    this.setState({
+      selectedShip: {name: name, orientation: "h" }
+    })
+  }
   fire(e) {
     if (this.state.computerBoard[e.target.getAttribute("data-cell-id")] === '') {
       e.target.classList.add('miss');
@@ -51,12 +60,12 @@ class Battleship extends Component {
   render(){
     return(
       <div className="window">
-        <Menu ships={this.state.playerShips}/>
+        <Menu pickShip={this.pickShip}/>
         <div className="playersView">
           <div className="playerBoard">
             <h1>Your Board</h1>
             {this.state.playerBoard.map((cell, index) => {
-              return <div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>;
+              return <div onClick={this.placeShip} className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>;
             })}
           </div>
           <div className="playerComputerBoard">
