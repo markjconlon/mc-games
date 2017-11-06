@@ -10,7 +10,6 @@ class Battleship extends Component {
       playerTurn: 0,
       selectedShip: {},
       playerShips: {
-        // probably need to leave this open and add ships in as we go.
         aircraftCarrier: { length: 5, symbol: 'L', isPlaced: false },
         battleship: { length: 4, symbol: 'M', isPlaced: false },
         submarine: { length: 3, symbol: 'N', isPlaced: false },
