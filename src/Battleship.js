@@ -6,6 +6,7 @@ class Battleship extends Component {
     super();
     this.fire = this.fire.bind(this);
     this.pickShip = this.pickShip.bind(this);
+    this.placeShip = this.placeShip.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {},
@@ -49,6 +50,16 @@ class Battleship extends Component {
       selectedShip: {name: name, orientation: "h" }
     })
   }
+
+  placeShip(e) {
+    const cellIndex = e.target.getAttribute("data-cell-id");
+    const board = this.state.playerBoard.slice();
+    board[cellIndex] = this.state.playerShips[this.state.selectedShip.name].symbol;
+    this.setState({
+      playerBoard: board
+    })
+  }
+  
   fire(e) {
     if (this.state.computerBoard[e.target.getAttribute("data-cell-id")] === '') {
       e.target.classList.add('miss');
