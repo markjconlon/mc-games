@@ -43,6 +43,7 @@ class Battleship extends Component {
       ]
     }
   }
+
   pickShip(name) {
     const newShip = this.state.playerShips[name]
     console.log(newShip);
@@ -52,14 +53,32 @@ class Battleship extends Component {
   }
 
   placeShip(e) {
+    // finds the index of the cell clicked on and places the letter reprenseting the ship
     const cellIndex = e.target.getAttribute("data-cell-id");
     const board = this.state.playerBoard.slice();
-    board[cellIndex] = this.state.playerShips[this.state.selectedShip.name].symbol;
-    this.setState({
-      playerBoard: board
-    })
+    const name = this.state.selectedShip.name
+    const length = this.state.playerShips[name].length;
+    const symbol = this.state.playerShips[name].symbol;
+    const ships = {...this.state.playerShips}
+
+    if (this.state.playerShips[name].isPlaced === true) {
+      alert("You have already placed this ship");
+      return
+    } else {
+      board[cellIndex] = symbol;
+
+      for (var i = 1; i < length; i++) {
+        board[parseInt(cellIndex, 10) + i] = symbol;
+      }
+
+      ships[name].isPlaced = true
+      this.setState({
+        playerBoard: board,
+        playerShips: ships
+      })
+    }
   }
-  
+
   fire(e) {
     if (this.state.computerBoard[e.target.getAttribute("data-cell-id")] === '') {
       e.target.classList.add('miss');
@@ -67,6 +86,7 @@ class Battleship extends Component {
       e.target.classList.add('hit');
     };
   }
+
   render(){
     return(
       <div className="window">
