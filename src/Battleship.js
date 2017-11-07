@@ -59,6 +59,8 @@ class Battleship extends Component {
     const name = this.state.selectedShip.name
     const length = this.state.playerShips[name].length;
     const symbol = this.state.playerShips[name].symbol;
+    // its easier to make a copy of the playerShips (by spreading into ships)
+    // change one ship in the object and then set state for the parent object
     const ships = {...this.state.playerShips}
 
     if (this.state.playerShips[name].isPlaced === true) {
@@ -72,6 +74,7 @@ class Battleship extends Component {
       }
 
       ships[name].isPlaced = true
+
       this.setState({
         playerBoard: board,
         playerShips: ships
