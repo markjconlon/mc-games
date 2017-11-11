@@ -11,11 +11,11 @@ class Battleship extends Component {
       playerTurn: 0,
       selectedShip: {},
       playerShips: {
-        aircraftCarrier: { length: 5, symbol: 'L', isPlaced: false },
-        battleship: { length: 4, symbol: 'M', isPlaced: false },
-        submarine: { length: 3, symbol: 'N', isPlaced: false },
-        cruiser: { length: 3, symbol: 'O',isPlaced: false },
-        destroyer: { length: 2, symbol: 'P',isPlaced: false }
+        aircraftCarrier: { length: 5, symbol: 'A', isPlaced: false },
+        battleship: { length: 4, symbol: 'B', isPlaced: false },
+        submarine: { length: 3, symbol: 'S', isPlaced: false },
+        cruiser: { length: 3, symbol: 'C',isPlaced: false },
+        destroyer: { length: 2, symbol: 'D',isPlaced: false }
       },
       playerBoard: [
         ['', '', '', '', '', '', '', '', '', ''],
@@ -114,8 +114,14 @@ class Battleship extends Component {
           </div>
           <div className="playerComputerBoard">
             <h1>Your Attacks</h1>
-            {this.state.computerBoard.map((cell, index) => {
-              return <div onClick={this.fire} className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>;
+            {this.state.computerBoard.map((row, index) => {
+              return(
+                <div onClick={this.fire} className="rows" key= {`computerBoard${index}`} data-row-id={index}>
+                  {row.map((cell, index)=> {
+                    return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}>{cell}</div>)
+                  })}
+                </div>
+              )
             })}
           </div>
         </div>
