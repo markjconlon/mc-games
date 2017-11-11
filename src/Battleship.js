@@ -18,28 +18,28 @@ class Battleship extends Component {
         destroyer: { length: 2, symbol: 'P',isPlaced: false }
       },
       playerBoard: [
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', ''
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', '']
       ],
       computerBoard: [
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '', '', ''
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', '']
       ]
     }
   }
@@ -54,7 +54,8 @@ class Battleship extends Component {
 
   placeShip(e) {
     // finds the index of the cell clicked on and places the letter reprenseting the ship
-    const cellIndex = e.target.getAttribute("data-cell-id");
+    const cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
+    const rowIndex = parseInt(e.currentTarget.getAttribute("data-row-id"), 10);
     const board = this.state.playerBoard.slice();
     const name = this.state.selectedShip.name
     const length = this.state.playerShips[name].length;
@@ -67,18 +68,23 @@ class Battleship extends Component {
       alert("You have already placed this ship");
       return
     } else {
-      board[cellIndex] = symbol;
+      if (cellIndex + length > 10){
+        console.log(cellIndex + length)
+        alert("There is not enough room on the board for that ship.")
+      } else {
+        board[rowIndex][cellIndex] = symbol;
 
-      for (var i = 1; i < length; i++) {
-        board[parseInt(cellIndex, 10) + i] = symbol;
+        for (var i = 1; i < length; i++) {
+          board[rowIndex][cellIndex + i] = symbol;
+        }
+
+        ships[name].isPlaced = true
+
+        this.setState({
+          playerBoard: board,
+          playerShips: ships
+        })
       }
-
-      ships[name].isPlaced = true
-
-      this.setState({
-        playerBoard: board,
-        playerShips: ships
-      })
     }
   }
 
@@ -97,8 +103,13 @@ class Battleship extends Component {
         <div className="playersView">
           <div className="playerBoard">
             <h1>Your Board</h1>
-            {this.state.playerBoard.map((cell, index) => {
-              return <div onClick={this.placeShip} className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>;
+            {this.state.playerBoard.map((row, index) => {
+              return(
+              <div onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
+                {row.map((cell, index)=> {
+                  return(<div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
+                })}
+              </div>)
             })}
           </div>
           <div className="playerComputerBoard">
