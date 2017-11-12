@@ -76,7 +76,9 @@ class Battleship extends Component {
     } else {
       if (cellIndex + length > 10){
         console.log(cellIndex + length)
-        alert("There is not enough room on the board for that ship.")
+        alert(`There is not enough room on the board to place the ${name}.`)
+      } else if (rowIndex + length > 10) {
+        alert(`There is not enough vertical space on the board to place the ${name}`)
       } else if (occupied) {
         alert("You can not place a ship on top of another ship!")
       } else {
