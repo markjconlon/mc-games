@@ -45,11 +45,11 @@ class Battleship extends Component {
     }
   }
 
-  pickShip(name) {
+  pickShip(name, orientation) {
     const newShip = this.state.playerShips[name]
     console.log(newShip);
     this.setState({
-      selectedShip: {name: name, orientation: "h" }
+      selectedShip: {name: name, orientation: orientation }
     })
   }
   collidesWithShip(cellIndex, rowIndex, length, board){
@@ -61,7 +61,8 @@ class Battleship extends Component {
     const cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
     const rowIndex = parseInt(e.currentTarget.getAttribute("data-row-id"), 10);
     const board = this.state.playerBoard.slice();
-    const name = this.state.selectedShip.name
+    const name = this.state.selectedShip.name;
+    const orientation = this.state.selectedShip.orientation;
     const length = this.state.playerShips[name].length;
     const symbol = this.state.playerShips[name].symbol;
     const occupied = this.collidesWithShip(cellIndex, rowIndex, length, board)
@@ -80,11 +81,15 @@ class Battleship extends Component {
         alert("You can not place a ship on top of another ship!")
       } else {
         board[rowIndex][cellIndex] = symbol;
-
-        for (var i = 1; i < length; i++) {
-          board[rowIndex][cellIndex + i] = symbol;
+        if (orientation === "h") {
+          for (var i = 1; i < length; i++) {
+            board[rowIndex][cellIndex + i] = symbol;
+          }
+        } else if (orientation === "v") {
+          for (var j = 1; j < length; j++) {
+            board[rowIndex + j][cellIndex] = symbol;
+          }
         }
-
         ships[name].isPlaced = true
 
         this.setState({

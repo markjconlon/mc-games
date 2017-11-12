@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 class Menu extends Component{
   selectShip(event) {
     event.preventDefault();
-    this.props.pickShip(this.name.value);
+    console.log(event);
+    this.props.pickShip(this.name.value, this.orientation.value);
   }
   render(){
     return(
@@ -18,8 +19,8 @@ class Menu extends Component{
             <option value="destroyer">Destroyer</option>
           </select>
           <select ref={(input) => this.orientation = input } placeholder="Orientation">
-            <option value="horizontal">Horizontal</option>
-            <option value="vertical">Vertical</option>
+            <option value="h">Horizontal</option>
+            <option value="v">Vertical</option>
           </select>
           <button type="submit">Add Ship</button>
         </form>
