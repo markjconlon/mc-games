@@ -10,7 +10,7 @@ class Battleship extends Component {
     this.collidesWithShip = this.collidesWithShip.bind(this);
     this.state= {
       playerTurn: 0,
-      selectedShip: {},
+      selectedShip: {name: "aircraftCarrier", orientation: "h"},
       playerShips: {
         aircraftCarrier: { length: 5, symbol: 'A', isPlaced: false },
         battleship: { length: 4, symbol: 'B', isPlaced: false },
@@ -41,7 +41,9 @@ class Battleship extends Component {
         ['', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', '']
-      ]
+      ],
+      playerHealth: 17,
+      computerHealth: 17,
     }
   }
 
