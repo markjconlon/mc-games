@@ -7,6 +7,7 @@ class Battleship extends Component {
     this.fire = this.fire.bind(this);
     this.pickShip = this.pickShip.bind(this);
     this.placeShip = this.placeShip.bind(this);
+    this.collidesWithShip = this.collidesWithShip.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {},
@@ -51,7 +52,10 @@ class Battleship extends Component {
       selectedShip: {name: name, orientation: "h" }
     })
   }
-
+  collidesWithShip(cellIndex, rowIndex, length, board){
+    var testArea = board[rowIndex].slice(cellIndex, (cellIndex+length));
+    return testArea.some(cell => cell !== "")
+  }
   placeShip(e) {
     // finds the index of the cell clicked on and places the letter reprenseting the ship
     const cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
@@ -60,6 +64,7 @@ class Battleship extends Component {
     const name = this.state.selectedShip.name
     const length = this.state.playerShips[name].length;
     const symbol = this.state.playerShips[name].symbol;
+    const occupied = this.collidesWithShip(cellIndex, rowIndex, length, board)
     // its easier to make a copy of the playerShips (by spreading into ships)
     // change one ship in the object and then set state for the parent object
     const ships = {...this.state.playerShips}
@@ -71,6 +76,8 @@ class Battleship extends Component {
       if (cellIndex + length > 10){
         console.log(cellIndex + length)
         alert("There is not enough room on the board for that ship.")
+      } else if (occupied) {
+        alert("You can not place a ship on top of another ship!")
       } else {
         board[rowIndex][cellIndex] = symbol;
 
