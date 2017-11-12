@@ -105,11 +105,18 @@ class Battleship extends Component {
   fire(e) {
     const row = e.currentTarget.getAttribute("data-row-id")
     const cell = e.target.getAttribute("data-cell-id")
-    if (this.state.computerBoard[row][cell] === '') {
+    const board = this.state.computerBoard.slice();
+    if ((this.state.computerBoard[row][cell]).split("").some(char => char === "f")) {
+      alert("You have already fired here.")
+    } else if(this.state.computerBoard[row][cell] === ''){
       e.target.classList.add('miss');
     } else {
       e.target.classList.add('hit');
     };
+    board[row][cell] = board[row][cell] + "f";
+    this.setState({
+      computerBoard: board
+    })
   }
 
   render(){
