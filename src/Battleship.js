@@ -31,7 +31,7 @@ class Battleship extends Component {
         ['', '', '', '', '', '', '', '', '', '']
       ],
       computerBoard: [
-        ['', '', '', '', '', '', '', '', '', ''],
+        ['A', 'A', 'A', 'A', 'A', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', ''],
@@ -103,7 +103,9 @@ class Battleship extends Component {
   }
 
   fire(e) {
-    if (this.state.computerBoard[e.target.getAttribute("data-cell-id")] === '') {
+    const row = e.currentTarget.getAttribute("data-row-id")
+    const cell = e.target.getAttribute("data-cell-id")
+    if (this.state.computerBoard[row][cell] === '') {
       e.target.classList.add('miss');
     } else {
       e.target.classList.add('hit');
@@ -132,7 +134,7 @@ class Battleship extends Component {
               return(
                 <div onClick={this.fire} className="rows" key= {`computerBoard${index}`} data-row-id={index}>
                   {row.map((cell, index)=> {
-                    return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}>{cell}</div>)
+                    return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>)
                   })}
                 </div>
               )
