@@ -36,6 +36,8 @@ body {
   width: 40px;
   height: 40px;
   border: 2px solid black;
+  align-items: center;
+  justify-content: space-around;
 }
 .rows{
   display: flex;
