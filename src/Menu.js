@@ -3,13 +3,12 @@ import React, {Component} from 'react';
 class Menu extends Component{
   selectShip(event) {
     event.preventDefault();
-    console.log(event);
     this.props.pickShip(this.name.value, this.orientation.value);
   }
   render(){
     return(
-      <div>
-        Choose a ship to place:
+      <div className= "menu">
+        <h1>Battleship</h1>
         <form onChange={(e)=> this.selectShip(e)}>
           <select ref={(input) => this.name = input } placeholder="Ship Name">
             <option value= "aircraftCarrier">Aircraft Carrier</option>
