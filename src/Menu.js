@@ -10,7 +10,7 @@ class Menu extends Component{
     return(
       <div>
         Choose a ship to place:
-        <form onSubmit={(e)=> this.selectShip(e)}>
+        <form onChange={(e)=> this.selectShip(e)}>
           <select ref={(input) => this.name = input } placeholder="Ship Name">
             <option value= "aircraftCarrier">Aircraft Carrier</option>
             <option value="battleship">Battleship</option>
@@ -22,7 +22,6 @@ class Menu extends Component{
             <option value="h">Horizontal</option>
             <option value="v">Vertical</option>
           </select>
-          <button type="submit">Add Ship</button>
         </form>
       </div>
     )
