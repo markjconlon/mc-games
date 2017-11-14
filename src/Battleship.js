@@ -51,7 +51,6 @@ class Battleship extends Component {
 
   pickShip(name, orientation) {
     const newShip = this.state.playerShips[name]
-    console.log(newShip);
     this.setState({
       selectedShip: {name: name, orientation: orientation }
     })
@@ -87,7 +86,6 @@ class Battleship extends Component {
       return
     } else {
       if (cellIndex + length > 10){
-        console.log(cellIndex + length)
         alert(`There is not enough room on the board to place the ${name}.`)
       } else if (rowIndex + length > 10) {
         alert(`There is not enough vertical space on the board to place the ${name}`)
@@ -132,7 +130,7 @@ class Battleship extends Component {
   }
 
   placeComputerShips(){
-    const board = {...this.state.computerBoard}
+    const board = [...this.state.computerBoard]
     const ships = this.state.playerShips;
     const shipNames = Object.keys(ships);
     let rows = [0,1,2,3,4,5,6,7,8,9]
@@ -141,12 +139,13 @@ class Battleship extends Component {
       let index = rows.indexOf(row);
       rows.splice(index,1);
       let startCell = Math.floor(Math.random()* (11 - ships[ship].length))
-      console.log(startCell);
       for (var i = 0; i < ships[ship].length; i++) {
         board[row][startCell + i] = ships[ship].symbol;
       }
     });
-    console.log(board);
+    this.setState({
+      computerBoard: board
+    })
   }
 
   start(){
@@ -197,11 +196,11 @@ class Battleship extends Component {
             <h1>Your Attacks</h1>
             {this.state.computerBoard.map((row, index) => {
               return(
-                <div onClick={this.fire} className="rows" key= {`computerBoard${index}`} data-row-id={index}>
-                  {row.map((cell, index)=> {
-                    return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>)
-                  })}
-                </div>
+              <div onClick={this.fire} className="rows" key= {`computerBoard${index}`} data-row-id={index}>
+                {row.map((cell, index)=> {
+                  return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>)
+                })}
+              </div>
               )
             })}
           </div>
