@@ -9,7 +9,7 @@ class Battleship extends Component {
     this.placeShip = this.placeShip.bind(this);
     this.collidesWithShip = this.collidesWithShip.bind(this);
     this.start = this.start.bind(this);
-    this.placeComputerShips = this.start.bind(this);
+    this.placeComputerShips = this.placeComputerShips.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -124,11 +124,16 @@ class Battleship extends Component {
   }
 
   placeComputerShips(){
+    const board = {...this.state.computerBoard}
+    const ships = this.state.playerShips;
+    const shipNames = Object.keys(ships);
+    let rows = [0,1,2,3,4,5,6,7,8,9]
+    shipNames.map(function(ship){
 
+    });
   }
 
-  start(e){
-    e.preventDefault();
+  start(){
     const newBoard = [
       ['', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', ''],
@@ -145,7 +150,6 @@ class Battleship extends Component {
     const resetShips = {...this.state.playerShips};
     const shipNames = Object.keys(resetShips);
     shipNames.map(name => resetShips[name].isPlaced = false);
-    console.log(resetShips);
     this.setState({
       playerBoard: newBoard,
       computerBoard: newBoard,
