@@ -8,6 +8,8 @@ class Battleship extends Component {
     this.pickShip = this.pickShip.bind(this);
     this.placeShip = this.placeShip.bind(this);
     this.collidesWithShip = this.collidesWithShip.bind(this);
+    this.start = this.start.bind(this);
+    this.placeComputerShips = this.start.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -31,7 +33,7 @@ class Battleship extends Component {
         ['', '', '', '', '', '', '', '', '', '']
       ],
       computerBoard: [
-        ['A', 'A', 'A', 'A', 'A', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', ''],
@@ -121,9 +123,43 @@ class Battleship extends Component {
     })
   }
 
+  placeComputerShips(){
+
+  }
+
+  start(e){
+    e.preventDefault();
+    const newBoard = [
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '']
+    ]
+
+    const resetShips = {...this.state.playerShips};
+    const shipNames = Object.keys(resetShips);
+    shipNames.map(name => resetShips[name].isPlaced = false);
+    console.log(resetShips);
+    this.setState({
+      playerBoard: newBoard,
+      computerBoard: newBoard,
+      playerShips: resetShips,
+      playerHealth: 17,
+      computerHealth: 17,
+    })
+    this.placeComputerShips();
+  }
+
   render(){
     return(
       <div className="window">
+        <button onClick={this.start}> Start a New Game! </button>
         <Menu pickShip={this.pickShip}/>
         <div className="playersView">
           <div className="playerBoard">
