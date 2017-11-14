@@ -56,9 +56,17 @@ class Battleship extends Component {
       selectedShip: {name: name, orientation: orientation }
     })
   }
-  collidesWithShip(cellIndex, rowIndex, length, board){
-    var testArea = board[rowIndex].slice(cellIndex, (cellIndex+length));
-    return testArea.some(cell => cell !== "")
+  collidesWithShip(cellIndex, rowIndex, length, board, orientation){
+    if (orientation === "h") {
+      let testArea = board[rowIndex].slice(cellIndex, (cellIndex+length));
+      return testArea.some(cell => cell !== "")
+    } else {
+      let testArea = []
+      for (var i = 0; i < length; i++) {
+        testArea.push(board[rowIndex + i][cellIndex])
+      }
+      return testArea.some(cell => cell !== "")
+    }
   }
   placeShip(e) {
     // finds the index of the cell clicked on and places the letter reprenseting the ship
@@ -69,7 +77,7 @@ class Battleship extends Component {
     const orientation = this.state.selectedShip.orientation;
     const length = this.state.playerShips[name].length;
     const symbol = this.state.playerShips[name].symbol;
-    const occupied = this.collidesWithShip(cellIndex, rowIndex, length, board)
+    const occupied = this.collidesWithShip(cellIndex, rowIndex, length, board, orientation)
     // its easier to make a copy of the playerShips (by spreading into ships)
     // change one ship in the object and then set state for the parent object
     const ships = {...this.state.playerShips}
