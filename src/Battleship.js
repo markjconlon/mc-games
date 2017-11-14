@@ -50,7 +50,6 @@ class Battleship extends Component {
   }
 
   pickShip(name, orientation) {
-    const newShip = this.state.playerShips[name]
     this.setState({
       selectedShip: {name: name, orientation: orientation }
     })
@@ -116,12 +115,17 @@ class Battleship extends Component {
     const row = e.currentTarget.getAttribute("data-row-id")
     const cell = e.target.getAttribute("data-cell-id")
     const board = this.state.computerBoard.slice();
+    let computerHealth = this.state.computerHealth
     if ((this.state.computerBoard[row][cell]).split("").some(char => char === "f")) {
       alert("You have already fired here.")
     } else if(this.state.computerBoard[row][cell] === ''){
       e.target.classList.add('miss');
     } else {
       e.target.classList.add('hit');
+      computerHealth -= 1;
+      this.setState({
+        computerHealth: computerHealth
+      })
     };
     board[row][cell] = board[row][cell] + "f";
     this.setState({
@@ -174,12 +178,17 @@ class Battleship extends Component {
     })
     this.placeComputerShips();
   }
-
+  checkWin(){
+    if (this.state.computerHealth === 0) {
+      return("You Win!");
+    }
+  }
   render(){
     return(
       <div className="window">
         <button onClick={this.start}> Start a New Game! </button>
         <Menu pickShip={this.pickShip}/>
+        <h1 className="checkWin">{this.checkWin()}</h1>
         <div className="playersView">
           <div className="playerBoard">
             <h1>Your Board</h1>
