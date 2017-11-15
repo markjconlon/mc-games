@@ -10,6 +10,7 @@ class Battleship extends Component {
     this.collidesWithShip = this.collidesWithShip.bind(this);
     this.start = this.start.bind(this);
     this.placeComputerShips = this.placeComputerShips.bind(this);
+    this.allShipsPlaced =  this.allShipsPlaced.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -111,26 +112,37 @@ class Battleship extends Component {
     }
   }
 
+  allShipsPlaced(){
+    const ships = {...this.state.playerShips};
+    const names = Object.keys(this.state.playerShips);
+    let arrayShips = names.map((name) => ships[name] );
+    return arrayShips.every(ship => ship.isPlaced === true)
+  }
+
   fire(e) {
-    const row = e.currentTarget.getAttribute("data-row-id")
-    const cell = e.target.getAttribute("data-cell-id")
-    const board = this.state.computerBoard.slice();
-    let computerHealth = this.state.computerHealth
-    if ((this.state.computerBoard[row][cell]).split("").some(char => char === "f")) {
-      alert("You have already fired here.")
-    } else if(this.state.computerBoard[row][cell] === ''){
-      e.target.classList.add('miss');
-    } else {
-      e.target.classList.add('hit');
-      computerHealth -= 1;
+    if (this.allShipsPlaced()){
+      const row = e.currentTarget.getAttribute("data-row-id")
+      const cell = e.target.getAttribute("data-cell-id")
+      const board = this.state.computerBoard.slice();
+      let computerHealth = this.state.computerHealth
+      if ((this.state.computerBoard[row][cell]).split("").some(char => char === "f")) {
+        alert("You have already fired here.")
+      } else if(this.state.computerBoard[row][cell] === ''){
+        e.target.classList.add('miss');
+      } else {
+        e.target.classList.add('hit');
+        computerHealth -= 1;
+        this.setState({
+          computerHealth: computerHealth
+        })
+      };
+      board[row][cell] = board[row][cell] + "f";
       this.setState({
-        computerHealth: computerHealth
+        computerBoard: board
       })
-    };
-    board[row][cell] = board[row][cell] + "f";
-    this.setState({
-      computerBoard: board
-    })
+    } else {
+      alert("You must have placed all of your ships before firing.")
+    }
   }
 
   placeComputerShips(){
