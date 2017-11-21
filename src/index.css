@@ -16,6 +16,7 @@ body {
   height: 100%;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 .playersView h1 {
   width: 100%;
@@ -28,6 +29,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  margin-bottom: 5em;
 }
 .playerComputerBoard {
   display: flex;
