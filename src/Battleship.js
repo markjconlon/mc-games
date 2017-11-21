@@ -230,7 +230,10 @@ class Battleship extends Component {
   render(){
     return(
       <div className="window">
-        <button onClick={this.start}> Start a New Game! </button>
+        <h1 className="gameTitle">BATTLESHIP</h1>
+        <div className="start">
+          <button onClick={this.start}> Start a New Game! </button>
+        </div>
         <Menu pickShip={this.pickShip}/>
         <h1 className="checkWin">{this.checkWin()}</h1>
         <div className="playersView">

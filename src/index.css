@@ -3,6 +3,18 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.gameTitle{
+  margin-top: 0;
+  text-align: center;
+  background-image: url("Ocean.jpg");
+  padding: 1em;
+  background-size: cover;
+  background-position: bottom;
+  color: whitesmoke;
+  font-weight: 600;
+  font-size: 3.5em;
+  letter-spacing: 0.75em;
+}
 .checkWin{
   color: red;
   text-align: center;
@@ -62,4 +74,8 @@ body {
 }
 .miss{
   background-color: blue;
+}
+.start{
+  display: flex;
+  justify-content: space-around;
 }

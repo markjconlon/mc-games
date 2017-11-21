@@ -8,7 +8,6 @@ class Menu extends Component{
   render(){
     return(
       <div className= "menu">
-        <h1>Battleship</h1>
         <form onChange={(e)=> this.selectShip(e)}>
           <select ref={(input) => this.name = input } placeholder="Ship Name">
             <option value= "aircraftCarrier">Aircraft Carrier</option>
