@@ -12,7 +12,6 @@ class Battleship extends Component {
     this.start = this.start.bind(this);
     this.placeComputerShips = this.placeComputerShips.bind(this);
     this.allShipsPlaced =  this.allShipsPlaced.bind(this);
-    this.computerShipsNotPlaced = this.computerShipsNotPlaced.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -75,6 +74,7 @@ class Battleship extends Component {
     const cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
     const rowIndex = parseInt(e.currentTarget.getAttribute("data-row-id"), 10);
     const board = this.state.playerBoard.slice();
+    const computerBoard = this.state.computerBoard.slice();
     const name = this.state.selectedShip.name;
     const orientation = this.state.selectedShip.orientation;
     const length = this.state.playerShips[name].length;
@@ -84,9 +84,7 @@ class Battleship extends Component {
     // change one ship in the object and then set state for the parent object
     const ships = {...this.state.playerShips}
 
-    if (this.computerShipsNotPlaced()) {
-      alert('Click the start a new game button to begin.')
-    } else if (this.state.playerShips[name].isPlaced === true) {
+    if (this.state.playerShips[name].isPlaced === true) {
       alert("You have already placed this ship");
       return
     } else {
@@ -115,11 +113,10 @@ class Battleship extends Component {
         })
       }
     }
-  }
 
-  computerShipsNotPlaced(){
-    const computerBoard = this.state.computerBoard.slice();
-    return computerBoard.every(row => row.every(cell => cell === ""));
+    if (computerBoard.every(row => row.every(cell => cell === ""))) {
+      this.placeComputerShips();
+    }
   }
 
   allShipsPlaced(){
@@ -230,7 +227,18 @@ class Battleship extends Component {
     shipNames.map(name => resetShips[name].isPlaced = false);
     this.setState({
       playerBoard: newBoard,
-      computerBoard: newBoard,
+      computerBoard: [
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '', '']
+      ],
       playerShips: resetShips,
       playerHealth: 17,
       computerHealth: 17,
@@ -256,9 +264,8 @@ class Battleship extends Component {
     if (hitComputerBoard.length > 0) {
       hitComputerBoard.forEach( cell => cell.classList.remove('hit'));
     }
-
-    this.placeComputerShips();
   }
+
   checkWin(){
     if (this.state.computerHealth === 0) {
       return("You Win!");
