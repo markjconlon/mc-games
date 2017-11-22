@@ -129,6 +129,7 @@ class Battleship extends Component {
       let computerHealth = this.state.computerHealth;
       if ((this.state.computerBoard[row][cell]).split("").some(char => char === "f")) {
         alert("You have already fired here.")
+        return
       } else if(this.state.computerBoard[row][cell] === ''){
         e.target.classList.add('miss');
       } else {
@@ -144,7 +145,7 @@ class Battleship extends Component {
       });
       this.computerFire();
     } else {
-      alert("You must have placed all of your ships before firing.")
+      alert("You must have placed all of your ships before firing.");
     }
   }
 
@@ -159,15 +160,21 @@ class Battleship extends Component {
         return oldMove[0] === move[0] && oldMove[1] === move[1];
       }))
     })
+
     const move = possibleMoves[Math.floor(Math.random()* (possibleMoves.length))];
 
     if (this.state.playerBoard[move[0]][move[1]] !== '') {
+      const target = document.querySelector(`.playerBoard div[data-row-id=\"${move[0]}\"] div[data-cell-id=\"${move[1]}\"]`);
+      target.classList.add('hit');
       playerHealth -= 1;
       this.setState({
         playerHealth: playerHealth
       })
+    } else {
+      const target = document.querySelector(`.playerBoard div[data-row-id=\"${move[0]}\"] div[data-cell-id=\"${move[1]}\"]`);
+      target.classList.add('miss');
     }
-    playerBoard[move[0]][move[1]] = playerBoard[move[0]][move[1]] + "f";
+    // playerBoard[move[0]][move[1]] = playerBoard[move[0]][move[1]] + "f";
     moves.push(move);
     this.setState({
       playerBoard: playerBoard,
