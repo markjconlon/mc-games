@@ -87,37 +87,44 @@ class Battleship extends Component {
     if (this.state.playerShips[name].isPlaced === true) {
       alert("You have already placed this ship");
       return
-    } else {
+
+    } else if( orientation === "h" ) {
       if (cellIndex + length > 10){
         alert(`There is not enough room on the board to place the ${name}.`)
-      } else if (rowIndex + length > 10) {
+      } else if (occupied) {
+        alert("You can not place a ship on top of another ship!")
+      } else {
+        board[rowIndex][cellIndex] = symbol;
+        for (var i = 1; i < length; i++) {
+          board[rowIndex][cellIndex + i] = symbol;
+        }
+      }
+
+    } else if (orientation === "v") {
+      if (rowIndex + length > 10) {
         alert(`There is not enough vertical space on the board to place the ${name}`)
       } else if (occupied) {
         alert("You can not place a ship on top of another ship!")
       } else {
         board[rowIndex][cellIndex] = symbol;
-        if (orientation === "h") {
-          for (var i = 1; i < length; i++) {
-            board[rowIndex][cellIndex + i] = symbol;
-          }
-        } else if (orientation === "v") {
-          for (var j = 1; j < length; j++) {
-            board[rowIndex + j][cellIndex] = symbol;
-          }
+        for (var j = 1; j < length; j++) {
+          board[rowIndex + j][cellIndex] = symbol;
         }
-        ships[name].isPlaced = true
-
-        this.setState({
-          playerBoard: board,
-          playerShips: ships
-        })
       }
     }
+    
+    ships[name].isPlaced = true
 
+    this.setState({
+      playerBoard: board,
+      playerShips: ships
+    })
     if (computerBoard.every(row => row.every(cell => cell === ""))) {
       this.placeComputerShips();
     }
   }
+
+
 
   allShipsPlaced(){
     const ships = {...this.state.playerShips};
