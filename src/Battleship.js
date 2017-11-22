@@ -12,6 +12,7 @@ class Battleship extends Component {
     this.start = this.start.bind(this);
     this.placeComputerShips = this.placeComputerShips.bind(this);
     this.allShipsPlaced =  this.allShipsPlaced.bind(this);
+    this.computerShipsNotPlaced = this.computerShipsNotPlaced.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -83,7 +84,9 @@ class Battleship extends Component {
     // change one ship in the object and then set state for the parent object
     const ships = {...this.state.playerShips}
 
-    if (this.state.playerShips[name].isPlaced === true) {
+    if (this.computerShipsNotPlaced()) {
+      alert('Click the start a new game button to begin.')
+    } else if (this.state.playerShips[name].isPlaced === true) {
       alert("You have already placed this ship");
       return
     } else {
@@ -112,6 +115,11 @@ class Battleship extends Component {
         })
       }
     }
+  }
+
+  computerShipsNotPlaced(){
+    const computerBoard = this.state.computerBoard.slice();
+    return computerBoard.every(row => row.every(cell => cell === ""));
   }
 
   allShipsPlaced(){
