@@ -238,8 +238,8 @@ class Battleship extends Component {
     // next 20 lines remove hit and miss classes from screen if needed when a new game is started.
     const missPlayerBoard = document.querySelectorAll('.playerBoard div.miss');
     const hitPlayerBoard = document.querySelectorAll('.playerBoard div.hit');
-    const missComputerBoard = document.querySelectorAll('.computerBoard div.miss');
-    const hitComputerBoard = document.querySelectorAll('.computerBoard div.hit');
+    const missComputerBoard = document.querySelectorAll('.playerComputerBoard div.miss');
+    const hitComputerBoard = document.querySelectorAll('.playerComputerBoard div.hit');
 
     if (missPlayerBoard.length > 0) {
       missPlayerBoard.forEach( cell => cell.classList.remove('miss'));
