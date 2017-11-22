@@ -164,6 +164,7 @@ class Battleship extends Component {
     const move = possibleMoves[Math.floor(Math.random()* (possibleMoves.length))];
 
     if (this.state.playerBoard[move[0]][move[1]] !== '') {
+      //eslint-disable-next-line
       const target = document.querySelector(`.playerBoard div[data-row-id=\"${move[0]}\"] div[data-cell-id=\"${move[1]}\"]`);
       target.classList.add('hit');
       playerHealth -= 1;
@@ -171,6 +172,7 @@ class Battleship extends Component {
         playerHealth: playerHealth
       })
     } else {
+      //eslint-disable-next-line
       const target = document.querySelector(`.playerBoard div[data-row-id=\"${move[0]}\"] div[data-cell-id=\"${move[1]}\"]`);
       target.classList.add('miss');
     }
@@ -224,7 +226,29 @@ class Battleship extends Component {
       playerShips: resetShips,
       playerHealth: 17,
       computerHealth: 17,
-    })
+    });
+    // next 20 lines remove hit and miss classes from screen if needed when a new game is started.
+    const missPlayerBoard = document.querySelectorAll('.playerBoard div.miss');
+    const hitPlayerBoard = document.querySelectorAll('.playerBoard div.hit');
+    const missComputerBoard = document.querySelectorAll('.computerBoard div.miss');
+    const hitComputerBoard = document.querySelectorAll('.computerBoard div.hit');
+
+    if (missPlayerBoard.length > 0) {
+      missPlayerBoard.forEach( cell => cell.classList.remove('miss'));
+    }
+
+    if (hitPlayerBoard.length > 0) {
+      hitPlayerBoard.forEach( cell => cell.classList.remove('hit'));
+    }
+
+    if (missComputerBoard.length > 0) {
+      missComputerBoard.forEach( cell => cell.classList.remove('miss'));
+    }
+
+    if (hitComputerBoard.length > 0) {
+      hitComputerBoard.forEach( cell => cell.classList.remove('hit'));
+    }
+
     this.placeComputerShips();
   }
   checkWin(){
