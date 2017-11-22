@@ -195,12 +195,15 @@ class Battleship extends Component {
     const shipNames = Object.keys(ships);
     let rows = [0,1,2,3,4,5,6,7,8,9]
     shipNames.map(function(ship){
-      let row = rows[Math.floor(Math.random() * rows.length)]
-      let index = rows.indexOf(row);
-      rows.splice(index,1);
-      let startCell = Math.floor(Math.random()* (11 - ships[ship].length))
-      for (var i = 0; i < ships[ship].length; i++) {
-        board[row][startCell + i] = ships[ship].symbol;
+      let horizontalOrVertical = Math.floor(Math.random()*2);
+      if (horizontalOrVertical === 0 || horizontalOrVertical === 1) {
+        let row = rows[Math.floor(Math.random() * rows.length)]
+        let index = rows.indexOf(row);
+        rows.splice(index,1);
+        let startCell = Math.floor(Math.random()* (11 - ships[ship].length))
+        for (var i = 0; i < ships[ship].length; i++) {
+          board[row][startCell + i] = ships[ship].symbol;
+        }
       }
     });
     this.setState({
