@@ -112,7 +112,7 @@ class Battleship extends Component {
         }
       }
     }
-    
+
     ships[name].isPlaced = true
 
     this.setState({
@@ -200,19 +200,39 @@ class Battleship extends Component {
     const board = [...this.state.computerBoard]
     const ships = this.state.playerShips;
     const shipNames = Object.keys(ships);
-    let rows = [0,1,2,3,4,5,6,7,8,9]
+    // let rows = [0,1,2,3,4,5,6,7,8,9]
     shipNames.map(function(ship){
+      // 0 is horizontal and 1 is vertical
       let horizontalOrVertical = Math.floor(Math.random()*2);
-      if (horizontalOrVertical === 0 || horizontalOrVertical === 1) {
-        let row = rows[Math.floor(Math.random() * rows.length)]
-        let index = rows.indexOf(row);
-        rows.splice(index,1);
-        let startCell = Math.floor(Math.random()* (11 - ships[ship].length))
+
+      if (horizontalOrVertical === 0) {
+        let row = Math.floor(Math.random() * 10);
+        let startCell = Math.floor(Math.random()* (11 - ships[ship].length));
+
+        while (this.collidesWithShip(startCell, row, ships[ship].length, board, "h")) {
+          row = Math.floor(Math.random() * 10);
+          startCell = Math.floor(Math.random() * (11 - ships[ship].length));
+        }
+
         for (var i = 0; i < ships[ship].length; i++) {
           board[row][startCell + i] = ships[ship].symbol;
         }
+      } else {
+
+        let row = Math.floor(Math.random() * (11 - ships[ship].length));
+        let startCell = Math.floor(Math.random() * 10);
+
+        while (this.collidesWithShip(startCell, row, ships[ship].length, board, "v")) {
+          row = Math.floor(Math.random()* (11 - ships[ship].length));
+          startCell = Math.floor(Math.random() * 10);
+        }
+
+        for (var j = 0; j < ships[ship].length; j++) {
+          board[row + j][startCell] = ships[ship].symbol;
+        }
+
       }
-    });
+    }, this);
     this.setState({
       computerBoard: board
     })
