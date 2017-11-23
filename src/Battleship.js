@@ -62,11 +62,15 @@ class Battleship extends Component {
       let testArea = board[rowIndex].slice(cellIndex, (cellIndex+length));
       return testArea.some(cell => cell !== "")
     } else {
-      let testArea = []
-      for (var i = 0; i < length; i++) {
-        testArea.push(board[rowIndex + i][cellIndex])
+      if (rowIndex + length > 9) {
+        return false
+      } else {
+        let testArea = []
+        for (var i = 0; i < length-1; i++) {
+          testArea.push(board[rowIndex + i][cellIndex])
+        }
+        return testArea.some(cell => cell !== "")
       }
-      return testArea.some(cell => cell !== "")
     }
   }
   placeShip(e) {
@@ -104,9 +108,11 @@ class Battleship extends Component {
 
     } else if (orientation === "v") {
       if (rowIndex + length > 10) {
-        alert(`There is not enough vertical space on the board to place the ${name}`)
+        alert(`There is not enough vertical space on the board to place the ${name}`);
+        return
       } else if (occupied) {
-        alert("You can not place a ship on top of another ship!")
+        alert("You can not place a ship on top of another ship!");
+        return
       } else {
         board[rowIndex][cellIndex] = symbol;
         for (var j = 1; j < length; j++) {
