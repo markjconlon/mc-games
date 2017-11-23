@@ -90,9 +90,11 @@ class Battleship extends Component {
 
     } else if( orientation === "h" ) {
       if (cellIndex + length > 10){
-        alert(`There is not enough room on the board to place the ${name}.`)
+        alert(`There is not enough room on the board to place the ${name}.`);
+        return
       } else if (occupied) {
-        alert("You can not place a ship on top of another ship!")
+        alert("You can not place a ship on top of another ship!");
+        return
       } else {
         board[rowIndex][cellIndex] = symbol;
         for (var i = 1; i < length; i++) {
@@ -123,8 +125,6 @@ class Battleship extends Component {
       this.placeComputerShips();
     }
   }
-
-
 
   allShipsPlaced(){
     const ships = {...this.state.playerShips};
