@@ -10,11 +10,11 @@ class ShipStatus extends Component{
     const ships = passedShips
     const shipNames = Object.keys(this.props.playerShips)
 
-    const formatted = shipNames.map( (ship) => {
+    const formatted = shipNames.map( (ship, index) => {
       if (ships[ship].length - ships[ship].hits === 0){
-        return <li className="sunk">{ship.toUpperCase()}</li>
+        return <li className="sunk" key={index}>{ship.toUpperCase()}</li>
       } else {
-        return <li className="afloat">{ship.toUpperCase()}</li>
+        return <li className="afloat" key={index}>{ship.toUpperCase()}</li>
       }
     });
     return formatted
