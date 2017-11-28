@@ -87,5 +87,20 @@ button{
 }
 
 /*Ship Status Start*/
-
+.shipStatus{
+  display: flex;
+  justify-content: space-around;
+  line-height: 1.5em;
+  text-align: center;
+}
+.shipStatus ul{
+  list-style: none;
+}
+.afloat{
+  color: green;
+}
+.sunk{
+  color: red;
+  text-decoration: line-through;
+}
 /*Ship Status End*/
