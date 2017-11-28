@@ -16,11 +16,18 @@ class Battleship extends Component {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
       playerShips: {
-        aircraftCarrier: { length: 5, symbol: 'A', isPlaced: false },
-        battleship: { length: 4, symbol: 'B', isPlaced: false },
-        submarine: { length: 3, symbol: 'S', isPlaced: false },
-        cruiser: { length: 3, symbol: 'C',isPlaced: false },
-        destroyer: { length: 2, symbol: 'D',isPlaced: false }
+        aircraftCarrier: { length: 5, symbol: 'A', isPlaced: false, hits: 0 },
+        battleship: { length: 4, symbol: 'B', isPlaced: false, hits: 0 },
+        submarine: { length: 3, symbol: 'S', isPlaced: false, hits: 0 },
+        cruiser: { length: 3, symbol: 'C',isPlaced: false, hits: 0 },
+        destroyer: { length: 2, symbol: 'D',isPlaced: false, hits: 0 }
+      },
+      computerShips: {
+        aircraftCarrier: { length: 5, hits: 0 },
+        battleship: { length: 4, hits: 0  },
+        submarine: { length: 3, hits: 0 },
+        cruiser: { length: 3, hits: 0 },
+        destroyer: { length: 2, hits: 0 }
       },
       playerBoard: [
         ['', '', '', '', '', '', '', '', '', ''],
