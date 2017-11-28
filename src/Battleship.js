@@ -23,11 +23,11 @@ class Battleship extends Component {
         destroyer: { length: 2, symbol: 'D',isPlaced: false, hits: 0 }
       },
       computerShips: {
-        aircraftCarrier: { length: 5, hits: 0 },
-        battleship: { length: 4, hits: 0  },
-        submarine: { length: 3, hits: 0 },
-        cruiser: { length: 3, hits: 0 },
-        destroyer: { length: 2, hits: 0 }
+        aircraftCarrier: { length: 5, symbol: 'A', hits: 0 },
+        battleship: { length: 4, symbol: 'B', hits: 0  },
+        submarine: { length: 3, symbol: 'S', hits: 0 },
+        cruiser: { length: 3, symbol: 'C', hits: 0 },
+        destroyer: { length: 2, symbol: 'D', hits: 0 }
       },
       playerBoard: [
         ['', '', '', '', '', '', '', '', '', ''],
