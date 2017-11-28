@@ -24,9 +24,11 @@ class ShipStatus extends Component{
       <div className="shipStatus">
 
         <ul>
+          <li className="fleet">PLAYER SHIPS</li>
           {this.formattedShips(this.props.playerShips)}
         </ul>
         <ul>
+          <li className="fleet">COMPUTER SHIPS</li>
           {this.formattedShips(this.props.computerShips)}
         </ul>
 
