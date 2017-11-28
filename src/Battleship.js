@@ -152,6 +152,8 @@ class Battleship extends Component {
       const row = e.currentTarget.getAttribute("data-row-id");
       const cell = e.target.getAttribute("data-cell-id");
       const board = this.state.computerBoard.slice();
+      const ships = {...this.state.computerShips};
+      const shipNames = Object.keys(ships);
       let computerHealth = this.state.computerHealth;
       if ((this.state.computerBoard[row][cell]).split("").some(char => char === "f")) {
         alert("You have already fired here.")
@@ -160,9 +162,14 @@ class Battleship extends Component {
         e.target.classList.add('miss');
       } else {
         e.target.classList.add('hit');
+        let shipName = shipNames.filter( ship => {
+          return ships[ship].symbol === board[row][cell];
+        })
+        ships[shipName].hits += 1
         computerHealth -= 1;
         this.setState({
-          computerHealth: computerHealth
+          computerHealth: computerHealth,
+          computerShips: ships
         })
       };
       board[row][cell] = board[row][cell] + "f";
