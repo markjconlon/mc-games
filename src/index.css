@@ -4,6 +4,7 @@ body {
   font-family: sans-serif;
 }
 button{
+  display: flex;
   border-radius: 0;
   padding: 1em;
   font-weight: bold;
@@ -24,6 +25,22 @@ button{
   letter-spacing: 0.5em;
   text-shadow: 2px 2px #444;
 }
+
+.main{
+  display: flex;
+}
+.gameArea{
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.menuComponents{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
 .checkWin{
   color: red;
   text-align: center;
@@ -89,12 +106,14 @@ button{
 /*Ship Status Start*/
 .shipStatus{
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-content: space-around;
   line-height: 1.5em;
   text-align: center;
 }
 .shipStatus ul{
   list-style: none;
+  padding: 0;
 }
 .afloat{
   color: green;

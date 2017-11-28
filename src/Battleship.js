@@ -342,42 +342,49 @@ class Battleship extends Component {
     return(
       <div className="window">
         <h1 className="gameTitle">BATTLESHIP</h1>
-        <div className="start">
-          <button onClick={this.start}> Start a New Game! </button>
-        </div>
 
-        <Menu pickShip={this.pickShip}/>
+        <div className="main">
+          <div className="menuComponents">
+            <div className="start">
+              <button onClick={this.start}> Start a New Game! </button>
+            </div>
 
-        <ShipStatus playerShips={this.state.playerShips} computerShips={this.state.computerShips}/>
+            <Menu pickShip={this.pickShip}/>
 
-        <h1 className="checkWin">{this.checkWin()}</h1>
-
-        <div className="playersView">
-          <div className="playerBoard">
-            <h1>Your Board</h1>
-            {this.state.playerBoard.map((row, index) => {
-              return(
-              <div onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
-                {row.map((cell, index)=> {
-                  return(<div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
-                })}
-              </div>)
-            })}
+            <ShipStatus playerShips={this.state.playerShips} computerShips={this.state.computerShips}/>
           </div>
 
-          <div className="playerComputerBoard">
-            <h1>Your Attacks</h1>
-            {this.state.computerBoard.map((row, index) => {
-              return(
-              <div onClick={this.fire} className="rows" key= {`computerBoard${index}`} data-row-id={index}>
-                {row.map((cell, index)=> {
-                  return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>)
-                })}
+          <div className="gameArea">
+            <h1 className="checkWin">{this.checkWin()}</h1>
+
+            <div className="playersView">
+              <div className="playerBoard">
+                <h1>Your Board</h1>
+                {this.state.playerBoard.map((row, index) => {
+                  return(
+                    <div onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
+                      {row.map((cell, index)=> {
+                        return(<div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
+                      })}
+                    </div>)
+                  })}
+                </div>
+
+                <div className="playerComputerBoard">
+                  <h1>Your Attacks</h1>
+                  {this.state.computerBoard.map((row, index) => {
+                    return(
+                      <div onClick={this.fire} className="rows" key= {`computerBoard${index}`} data-row-id={index}>
+                        {row.map((cell, index)=> {
+                          return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>)
+                        })}
+                      </div>
+                    )
+                  })}
+                </div>
+
               </div>
-              )
-            })}
           </div>
-
         </div>
       </div>
     );
