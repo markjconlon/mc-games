@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Menu from './Menu';
+import ShipStatus from './ShipStatus';
 
 class Battleship extends Component {
   constructor() {
@@ -323,8 +324,13 @@ class Battleship extends Component {
         <div className="start">
           <button onClick={this.start}> Start a New Game! </button>
         </div>
+
         <Menu pickShip={this.pickShip}/>
+
+        <ShipStatus playerShips={this.state.playerShips} computerShips={this.state.computerShips}/>
+
         <h1 className="checkWin">{this.checkWin()}</h1>
+
         <div className="playersView">
           <div className="playerBoard">
             <h1>Your Board</h1>
@@ -337,6 +343,7 @@ class Battleship extends Component {
               </div>)
             })}
           </div>
+
           <div className="playerComputerBoard">
             <h1>Your Attacks</h1>
             {this.state.computerBoard.map((row, index) => {
@@ -349,6 +356,7 @@ class Battleship extends Component {
               )
             })}
           </div>
+
         </div>
       </div>
     );
