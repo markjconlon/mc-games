@@ -33,12 +33,12 @@ button{
   width: 80%;
   display: flex;
   justify-content: space-around;
+  margin-bottom: 1em;
 }
-
 .menuComponents{
+  width: 20%;
   display: flex;
   flex-direction: column;
-  width: 20%;
 }
 
 .checkWin{
@@ -115,6 +115,10 @@ button{
   list-style: none;
   padding: 0;
 }
+.fleet{
+  text-decoration: underline;
+  font-weight: bold;
+}
 .afloat{
   color: green;
 }
@@ -123,3 +127,63 @@ button{
   text-decoration: line-through;
 }
 /*Ship Status End*/
+
+@media (max-width: 1023px){
+  .gameTitle{
+    letter-spacing: 0.25em;
+  }
+  .gameArea{
+    width: 70%;
+  }
+  .menuComponents{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px){
+  .gameTitle{
+    letter-spacing: 0.25em;
+    font-size: 2.5em;
+  }
+  .gameArea{
+    width: 70%;
+  }
+  .menuComponents{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+  .playerBoard{
+    width: 300px;
+    height: 300px;
+  }
+  .playerComputerBoard{
+    width: 300px;
+    height: 300px;
+  }
+  .cells{
+    width: 30px;
+    height: 30px;
+  }
+  .rows{
+    height: 30px;
+  }
+}
+@media (max-width: 475px){
+  .gameArea{
+    width: 90%;
+  }
+  .menuComponents{
+    visibility: hidden;
+    width: 10%;
+    flex-direction: column;
+  }
+}
+@media (max-width: 425px){
+  .gameTitle{
+    letter-spacing: 0.25em;
+    font-size: 2em;
+  }
+}
