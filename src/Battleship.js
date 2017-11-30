@@ -13,6 +13,7 @@ class Battleship extends Component {
     this.start = this.start.bind(this);
     this.placeComputerShips = this.placeComputerShips.bind(this);
     this.allShipsPlaced =  this.allShipsPlaced.bind(this);
+    this.sideMenu = this.sideMenu.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -338,18 +339,32 @@ class Battleship extends Component {
       return("You Lose!");
     }
   }
+
+  sideMenu(){
+    let menu = document.querySelector(".menuComponents");
+    if (Array.from(menu.classList).includes("collapsed")) {
+      menu.classList.remove("collapsed");
+    } else {
+      menu.classList.add("collapsed");
+    }
+  }
+
   render(){
     return(
       <div className="window">
         <h1 className="gameTitle">BATTLESHIP</h1>
 
         <div className="main">
-          <div className="menuComponents">
+
+          <div className="menuComponents collapsed">
+            <button onClick={this.sideMenu} className="collapseButton">+</button>
             <div className="start">
               <button onClick={this.start}> Start a New Game! </button>
             </div>
 
-            <Menu pickShip={this.pickShip}/>
+            <div className="notMobile">
+              <Menu pickShip={this.pickShip}/>
+            </div>
 
             <ShipStatus playerShips={this.state.playerShips} computerShips={this.state.computerShips}/>
           </div>
@@ -358,6 +373,9 @@ class Battleship extends Component {
             <h1 className="checkWin">{this.checkWin()}</h1>
 
             <div className="playersView">
+              <div className="mobile">
+                <Menu pickShip={this.pickShip}/>
+              </div>
               <div className="playerBoard">
                 <h1>Your Board</h1>
                 {this.state.playerBoard.map((row, index) => {

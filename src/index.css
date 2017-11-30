@@ -129,6 +129,9 @@ button{
 .mobile{
   display: none;
 }
+.collapseButton{
+  display: none;
+}
 /*Ship Status End*/
 
 @media (max-width: 1023px){
@@ -175,12 +178,21 @@ button{
   }
   .menuComponents{
     position: fixed;
-    z-index: 1;
-    left: -45%; 
-    /*visibility: hidden;*/
     width: 50%;
     flex-direction: column;
     background-color: white;
+  }
+  .collapsed{
+    z-index: 1;
+    left: -45%;
+  }
+  .collapseButton{
+    display: block;
+    border: none;
+    background-color: white;
+    text-align: right;
+    color: darkgrey;
+    padding-right: 0;
   }
   .mobile{
     display: flex;
