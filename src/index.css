@@ -126,6 +126,9 @@ button{
   color: red;
   text-decoration: line-through;
 }
+.mobile{
+  display: none;
+}
 /*Ship Status End*/
 
 @media (max-width: 1023px){
@@ -148,10 +151,10 @@ button{
     font-size: 2.5em;
   }
   .gameArea{
-    width: 70%;
+    width: 100%;
   }
   .menuComponents{
-    width: 30%;
+    width: 20%;
     display: flex;
     flex-direction: column;
   }
@@ -170,20 +173,41 @@ button{
   .rows{
     height: 30px;
   }
+  .menuComponents{
+    position: fixed;
+    z-index: 1;
+    left: -45%; 
+    /*visibility: hidden;*/
+    width: 50%;
+    flex-direction: column;
+    background-color: white;
+  }
+  .mobile{
+    display: flex;
+  }
+  .notMobile{
+    display: none;
+  }
+  .playersView{
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
 }
 @media (max-width: 475px){
-  .gameArea{
-    width: 90%;
-  }
-  .menuComponents{
-    visibility: hidden;
-    width: 10%;
-    flex-direction: column;
-  }
+
 }
 @media (max-width: 425px){
   .gameTitle{
     letter-spacing: 0.25em;
     font-size: 2em;
+  }
+  .playersView h1{
+    font-size: 1.5em;
+    display: none;
+  }
+  .playerBoard{
+    margin-bottom: 1em;
   }
 }
