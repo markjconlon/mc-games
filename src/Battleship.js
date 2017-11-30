@@ -353,7 +353,7 @@ class Battleship extends Component {
     return(
       <div className="window">
         <h1 className="gameTitle">BATTLESHIP</h1>
-
+        <h1 className="checkWin">{this.checkWin()}</h1>
         <div className="main">
 
           <div className="menuComponents collapsed">
@@ -370,7 +370,6 @@ class Battleship extends Component {
           </div>
 
           <div className="gameArea">
-            <h1 className="checkWin">{this.checkWin()}</h1>
 
             <div className="playersView">
               <div className="mobile">
