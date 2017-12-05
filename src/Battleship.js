@@ -369,9 +369,9 @@ class Battleship extends Component {
       }
     } else if (selectedShip.orientation === "v" && rowIndex + length <= 10){
       e.target.classList.add("hoverImage");
-      for (var i = 0; i < length ; i++) {
+      for (var j = 0; j < length ; i++) {
         //eslint-disable-next-line
-        var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + i}\"] div[data-cell-id=\"${cellIndex}\"]`);
+        var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + j}\"] div[data-cell-id=\"${cellIndex}\"]`);
         cell.classList.add("hoverImage");
       }
     }
@@ -411,7 +411,7 @@ class Battleship extends Component {
                 <h1>Your Board</h1>
                 {this.state.playerBoard.map((row, index) => {
                   return(
-                    <div onClick={this.fire} onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
+                    <div onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
                       {row.map((cell, index)=> {
                         return(<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
                       })}
@@ -423,7 +423,7 @@ class Battleship extends Component {
                   <h1>Your Attacks</h1>
                   {this.state.computerBoard.map((row, index) => {
                     return(
-                      <div className="rows" key= {`computerBoard${index}`} data-row-id={index}>
+                      <div onClick={this.fire} className="rows" key= {`computerBoard${index}`} data-row-id={index}>
                         {row.map((cell, index)=> {
                           return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>)
                         })}
