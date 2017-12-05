@@ -14,6 +14,8 @@ class Battleship extends Component {
     this.placeComputerShips = this.placeComputerShips.bind(this);
     this.allShipsPlaced =  this.allShipsPlaced.bind(this);
     this.sideMenu = this.sideMenu.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -83,9 +85,13 @@ class Battleship extends Component {
     }
   }
   placeShip(e) {
+    console.log(e.target.parentNode);
+    console.log(e.currentTarget);
     // finds the index of the cell clicked on and places the letter reprenseting the ship
-    const cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
+    const cellIndex = parseInt(e.target.parentNode.getAttribute("data-cell-id"), 10);
     const rowIndex = parseInt(e.currentTarget.getAttribute("data-row-id"), 10);
+    console.log(cellIndex);
+    console.log(rowIndex);
     const board = this.state.playerBoard.slice();
     const computerBoard = this.state.computerBoard.slice();
     const name = this.state.selectedShip.name;
@@ -349,13 +355,37 @@ class Battleship extends Component {
     }
   }
 
+  handleMouseEnter(e){
+    let playerBoard = [...this.state.playerBoard];
+    let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
+    let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
+    // console.log(rowIndex);
+    // console.log(playerBoard);
+    if (playerBoard[rowIndex][cellIndex] === "") {
+      const boat = require('./boat.png');
+      e.target.innerHTML = `<img src=${boat} width=40 height=40 />`
+    }
+    // playerBoard[e.currentTarget.getAttribute("data-row-id")][e.target.getAttribute("data-cell-id")] = `<img src="${boat}" width=40 height=40 />`;
+    // this.setState({
+    //   playerBoard: playerBoard
+    // })
+  }
+
+  handleMouseLeave(e){
+    let playerBoard = [...this.state.playerBoard];
+    let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
+    let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
+    if (playerBoard[rowIndex][cellIndex] === "") {
+      e.target.innerHTML = "";
+    }
+  }
+
   render(){
     return(
       <div className="window">
         <h1 className="gameTitle">BATTLESHIP</h1>
         <h1 className="checkWin">{this.checkWin()}</h1>
         <div className="main">
-
           <div className="menuComponents collapsed">
             <button onClick={this.sideMenu} className="collapseButton">+</button>
             <div className="start">
@@ -379,9 +409,9 @@ class Battleship extends Component {
                 <h1>Your Board</h1>
                 {this.state.playerBoard.map((row, index) => {
                   return(
-                    <div onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
+                    <div onClick={this.fire} onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
                       {row.map((cell, index)=> {
-                        return(<div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
+                        return(<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
                       })}
                     </div>)
                   })}
@@ -391,7 +421,7 @@ class Battleship extends Component {
                   <h1>Your Attacks</h1>
                   {this.state.computerBoard.map((row, index) => {
                     return(
-                      <div onClick={this.fire} className="rows" key= {`computerBoard${index}`} data-row-id={index}>
+                      <div className="rows" key= {`computerBoard${index}`} data-row-id={index}>
                         {row.map((cell, index)=> {
                           return(<div className="cells" key= {`computerBoard${index}`} data-cell-id={index}></div>)
                         })}
