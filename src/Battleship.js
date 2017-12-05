@@ -355,20 +355,19 @@ class Battleship extends Component {
     let playerBoard = [...this.state.playerBoard];
     let selectedShip = {...this.state.selectedShip};
     let playerShips = {...this.state.playerShips};
+    let length = playerShips[selectedShip.name].length
     let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
     let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
-    if (selectedShip.orientation === "h" && cellIndex + playerShips[selectedShip.name].length < 10) {
+    if (selectedShip.orientation === "h" && cellIndex + length < 10) {
       if (playerBoard[rowIndex][cellIndex] === "") {
         e.target.classList.add("hoverImage");
+        for (var i = 0; i < length ; i++) {
+          //eslint-disable-next-line
+          var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex}\"] div[data-cell-id=\"${cellIndex + i}\"]`);
+          cell.classList.add("hoverImage");
+        }
       }
-
-    } else {
-
     }
-    // playerBoard[e.currentTarget.getAttribute("data-row-id")][e.target.getAttribute("data-cell-id")] = `<img src="${boat}" width=40 height=40 />`;
-    // this.setState({
-    //   playerBoard: playerBoard
-    // })
   }
 
   handleMouseLeave(e){
