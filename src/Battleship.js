@@ -358,7 +358,7 @@ class Battleship extends Component {
     let length = playerShips[selectedShip.name].length
     let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
     let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
-    if (selectedShip.orientation === "h" && cellIndex + length < 10) {
+    if (selectedShip.orientation === "h" && cellIndex + length <= 10) {
       if (playerBoard[rowIndex][cellIndex] === "") {
         e.target.classList.add("hoverImage");
         for (var i = 0; i < length ; i++) {
@@ -367,14 +367,19 @@ class Battleship extends Component {
           cell.classList.add("hoverImage");
         }
       }
+    } else if (selectedShip.orientation === "v" && rowIndex + length <= 10){
+      e.target.classList.add("hoverImage");
+      for (var i = 0; i < length ; i++) {
+        //eslint-disable-next-line
+        var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + i}\"] div[data-cell-id=\"${cellIndex}\"]`);
+        cell.classList.add("hoverImage");
+      }
     }
   }
 
   handleMouseLeave(e){
-    let playerBoard = [...this.state.playerBoard];
-    let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
-    let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
-    e.target.classList.remove("hoverImage");
+    const list = Array.from(document.querySelectorAll(".hoverImage"));
+    list.map(node => node.classList.remove("hoverImage"));
   }
 
   render(){
