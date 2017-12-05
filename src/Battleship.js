@@ -85,13 +85,9 @@ class Battleship extends Component {
     }
   }
   placeShip(e) {
-    console.log(e.target.parentNode);
-    console.log(e.currentTarget);
     // finds the index of the cell clicked on and places the letter reprenseting the ship
-    const cellIndex = parseInt(e.target.parentNode.getAttribute("data-cell-id"), 10);
+    const cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
     const rowIndex = parseInt(e.currentTarget.getAttribute("data-row-id"), 10);
-    console.log(cellIndex);
-    console.log(rowIndex);
     const board = this.state.playerBoard.slice();
     const computerBoard = this.state.computerBoard.slice();
     const name = this.state.selectedShip.name;
@@ -357,13 +353,17 @@ class Battleship extends Component {
 
   handleMouseEnter(e){
     let playerBoard = [...this.state.playerBoard];
+    let selectedShip = {...this.state.selectedShip};
+    let playerShips = {...this.state.playerShips};
     let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
     let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
-    // console.log(rowIndex);
-    // console.log(playerBoard);
-    if (playerBoard[rowIndex][cellIndex] === "") {
-      const boat = require('./boat.png');
-      e.target.innerHTML = `<img src=${boat} width=40 height=40 />`
+    if (selectedShip.orientation === "h" && cellIndex + playerShips[selectedShip.name].length < 10) {
+      if (playerBoard[rowIndex][cellIndex] === "") {
+        e.target.classList.add("hoverImage");
+      }
+
+    } else {
+
     }
     // playerBoard[e.currentTarget.getAttribute("data-row-id")][e.target.getAttribute("data-cell-id")] = `<img src="${boat}" width=40 height=40 />`;
     // this.setState({
@@ -375,9 +375,7 @@ class Battleship extends Component {
     let playerBoard = [...this.state.playerBoard];
     let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
     let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
-    if (playerBoard[rowIndex][cellIndex] === "") {
-      e.target.innerHTML = "";
-    }
+    e.target.classList.remove("hoverImage");
   }
 
   render(){

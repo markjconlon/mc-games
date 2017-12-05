@@ -134,6 +134,10 @@ button{
 }
 /*Ship Status End*/
 
+.hoverImage{
+  background-image: url('./boat.png');
+  background-size: cover;
+}
 @media (max-width: 1023px){
   .gameTitle{
     letter-spacing: 0.25em;
