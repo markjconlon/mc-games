@@ -369,7 +369,7 @@ class Battleship extends Component {
       }
     } else if (selectedShip.orientation === "v" && rowIndex + length <= 10){
       e.target.classList.add("hoverImage");
-      for (var j = 0; j < length ; i++) {
+      for (var j = 0; j < length ; j++) {
         //eslint-disable-next-line
         var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + j}\"] div[data-cell-id=\"${cellIndex}\"]`);
         cell.classList.add("hoverImage");
