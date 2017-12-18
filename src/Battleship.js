@@ -358,6 +358,7 @@ class Battleship extends Component {
     let length = playerShips[selectedShip.name].length
     let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
     let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
+
     if (selectedShip.orientation === "h" && cellIndex + length <= 10) {
       if (playerBoard[rowIndex][cellIndex] === "") {
         e.target.classList.add("hoverImage");
@@ -365,6 +366,7 @@ class Battleship extends Component {
           //eslint-disable-next-line
           var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex}\"] div[data-cell-id=\"${cellIndex + i}\"]`);
           cell.classList.add("hoverImage");
+          cell.classList.add(`${selectedShip.name}-${i}`);
         }
       }
     } else if (selectedShip.orientation === "v" && rowIndex + length <= 10){
@@ -373,6 +375,9 @@ class Battleship extends Component {
         //eslint-disable-next-line
         var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + j}\"] div[data-cell-id=\"${cellIndex}\"]`);
         cell.classList.add("hoverImage");
+        cell.classList.add(`${selectedShip.name}-${i}`);
+        cell.classList.add("verticalImage");
+        // multiple images aircraftCarrier-1
       }
     }
   }
