@@ -340,6 +340,19 @@ class Battleship extends Component {
     if (hitComputerBoard.length > 0) {
       hitComputerBoard.forEach( cell => cell.classList.remove('hit'));
     }
+    // removes placed boat images
+    const boatClasses = [
+      "placed-aircraftCarrier-0", "placed-aircraftCarrier-1", "placed-aircraftCarrier-2", "placed-aircraftCarrier-3", "placed-aircraftCarrier-4",
+      "placed-battleship-0", "placed-battleship-1", "placed-battleship-2", "placed-battleship-3",
+      "placed-cruiser-0", "placed-cruiser-1", "placed-cruiser-2",
+      "placed-submarine-0", "placed-submarine-1", "placed-submarine-2",
+      "placed-destroyer-0", "placed-destroyer-1",
+      "placed-verticalImage", "placed-hoverImage"
+    ]
+    const list = Array.from(document.querySelectorAll(".placed-hoverImage"));
+    boatClasses.map(function(boatClass){
+      list.map(node => node.classList.remove(`${boatClass}`));
+    });
   }
 
   checkWin(){
