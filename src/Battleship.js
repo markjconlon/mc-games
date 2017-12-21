@@ -370,14 +370,16 @@ class Battleship extends Component {
         }
       }
     } else if (selectedShip.orientation === "v" && rowIndex + length <= 10){
-      e.target.classList.add("hoverImage");
-      for (var j = 0; j < length ; j++) {
-        //eslint-disable-next-line
-        var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + j}\"] div[data-cell-id=\"${cellIndex}\"]`);
-        cell.classList.add("hoverImage");
-        cell.classList.add(`${selectedShip.name}-${i}`);
-        cell.classList.add("verticalImage");
-        // multiple images aircraftCarrier-1
+      if (playerBoard[rowIndex][cellIndex] === "") {
+        e.target.classList.add("hoverImage");
+        for (var j = 0; j < length ; j++) {
+          //eslint-disable-next-line
+          var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + j}\"] div[data-cell-id=\"${cellIndex}\"]`);
+          cell.classList.add("hoverImage");
+          cell.classList.add(`${selectedShip.name}-${j}`);
+          cell.classList.add("verticalImage");
+          // multiple images aircraftCarrier-1
+        }
       }
     }
   }
