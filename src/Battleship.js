@@ -114,8 +114,9 @@ class Battleship extends Component {
       } else {
         for (var i = 0; i < length; i++) {
           board[rowIndex][cellIndex + i] = symbol;
+          //eslint-disable-next-line
           var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex}\"] div[data-cell-id=\"${cellIndex + i}\"]`);
-          cell.classList.add("placed-HoverImage");
+          cell.classList.add("placed-hoverImage");
           cell.classList.add(`placed-${selectedShip.name}-${i}`);
         }
       }
@@ -130,6 +131,11 @@ class Battleship extends Component {
       } else {
         for (var j = 0; j < length; j++) {
           board[rowIndex + j][cellIndex] = symbol;
+          //eslint-disable-next-line
+          var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + j}\"] div[data-cell-id=\"${cellIndex}\"]`);
+          cell.classList.add("placed-hoverImage");
+          cell.classList.add(`placed-${selectedShip.name}-${j}`);
+          cell.classList.add("placed-verticalImage");
         }
       }
     }
