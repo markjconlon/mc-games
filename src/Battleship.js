@@ -14,6 +14,8 @@ class Battleship extends Component {
     this.placeComputerShips = this.placeComputerShips.bind(this);
     this.allShipsPlaced =  this.allShipsPlaced.bind(this);
     this.sideMenu = this.sideMenu.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -349,13 +351,60 @@ class Battleship extends Component {
     }
   }
 
+  handleMouseEnter(e){
+    let playerBoard = [...this.state.playerBoard];
+    let selectedShip = {...this.state.selectedShip};
+    let playerShips = {...this.state.playerShips};
+    let length = playerShips[selectedShip.name].length
+    let rowIndex = parseInt(e.target.parentNode.getAttribute("data-row-id"), 10);
+    let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
+
+    if (selectedShip.orientation === "h" && cellIndex + length <= 10) {
+      if (playerBoard[rowIndex][cellIndex] === "") {
+        e.target.classList.add("hoverImage");
+        for (var i = 0; i < length ; i++) {
+          //eslint-disable-next-line
+          var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex}\"] div[data-cell-id=\"${cellIndex + i}\"]`);
+          cell.classList.add("hoverImage");
+          cell.classList.add(`${selectedShip.name}-${i}`);
+        }
+      }
+    } else if (selectedShip.orientation === "v" && rowIndex + length <= 10){
+      if (playerBoard[rowIndex][cellIndex] === "") {
+        e.target.classList.add("hoverImage");
+        for (var j = 0; j < length ; j++) {
+          //eslint-disable-next-line
+          var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex + j}\"] div[data-cell-id=\"${cellIndex}\"]`);
+          cell.classList.add("hoverImage");
+          cell.classList.add(`${selectedShip.name}-${j}`);
+          cell.classList.add("verticalImage");
+          // multiple images aircraftCarrier-1
+        }
+      }
+    }
+  }
+
+  handleMouseLeave(e){
+    const boatClasses = [
+      "aircraftCarrier-0", "aircraftCarrier-1", "aircraftCarrier-2", "aircraftCarrier-3", "aircraftCarrier-4",
+      "battleship-0", "battleship-1", "battleship-2", "battleship-3",
+      "cruiser-0", "cruiser-1", "cruiser-2",
+      "submarine-0", "submarine-1", "submarine-2",
+      "destroyer-0", "destroyer-1",
+      "verticalImage", "hoverImage"
+    ]
+    const list = Array.from(document.querySelectorAll(".hoverImage"));
+    boatClasses.map(function(boatClass){
+      list.map(node => node.classList.remove(`${boatClass}`));
+    });
+  }
+
   render(){
     return(
       <div className="window">
         <h1 className="gameTitle">BATTLESHIP</h1>
         <h1 className="checkWin">{this.checkWin()}</h1>
         <div className="main">
-
           <div className="menuComponents collapsed">
             <button onClick={this.sideMenu} className="collapseButton">+</button>
             <div className="start">
@@ -381,7 +430,7 @@ class Battleship extends Component {
                   return(
                     <div onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
                       {row.map((cell, index)=> {
-                        return(<div className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
+                        return(<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
                       })}
                     </div>)
                   })}
