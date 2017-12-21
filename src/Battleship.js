@@ -451,7 +451,7 @@ class Battleship extends Component {
                   return(
                     <div onClick={this.placeShip} className="rows" key= {`playerBoard${index}`} data-row-id={index}>
                       {row.map((cell, index)=> {
-                        return(<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="cells" key= {`playerBoard${index}`} data-cell-id={index}>{cell}</div>)
+                        return(<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="cells" key= {`playerBoard${index}`} data-cell-id={index}></div>)
                       })}
                     </div>)
                   })}
