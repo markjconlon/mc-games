@@ -16,6 +16,7 @@ class Battleship extends Component {
     this.sideMenu = this.sideMenu.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.testPlacedShipsForHover = this.testPlacedShipsForHover.bind(this);
     this.state= {
       playerTurn: 0,
       selectedShip: {name: "aircraftCarrier", orientation: "h"},
@@ -381,7 +382,7 @@ class Battleship extends Component {
     let cellIndex = parseInt(e.target.getAttribute("data-cell-id"), 10);
 
     if (selectedShip.orientation === "h" && cellIndex + length <= 10) {
-      if (playerBoard[rowIndex][cellIndex] === "") {
+      if (this.testPlacedShipsForHover(rowIndex, cellIndex, playerBoard, selectedShip.orientation) && !playerShips[selectedShip.name].isPlaced ) {
         e.target.classList.add("hoverImage");
         for (var i = 0; i < length ; i++) {
           //eslint-disable-next-line
@@ -391,7 +392,7 @@ class Battleship extends Component {
         }
       }
     } else if (selectedShip.orientation === "v" && rowIndex + length <= 10){
-      if (playerBoard[rowIndex][cellIndex] === "") {
+      if (this.testPlacedShipsForHover(rowIndex, cellIndex, playerBoard, selectedShip.orientation) && !playerShips[selectedShip.name].isPlaced ) {
         e.target.classList.add("hoverImage");
         for (var j = 0; j < length ; j++) {
           //eslint-disable-next-line
@@ -403,6 +404,28 @@ class Battleship extends Component {
         }
       }
     }
+  }
+
+  testPlacedShipsForHover(rowIndex, cellIndex, playerBoard, orientation){
+    let selectedShip = {...this.state.selectedShip};
+    const playerShips = {...this.state.playerShips};
+    let length = playerShips[selectedShip.name].length
+    let placeable = true;
+
+    if (orientation === "h") {
+      for (var i = 0; i < length; i++) {
+        if (playerBoard[rowIndex][cellIndex+i] !== "") {
+          placeable = false;
+        }
+      }
+    } else {
+      for (var j = 0; j < length; j++) {
+        if (playerBoard[rowIndex + j][cellIndex] !== "") {
+          placeable = false;
+        }
+      }
+    }
+    return placeable;
   }
 
   handleMouseLeave(e){
