@@ -97,7 +97,8 @@ class Battleship extends Component {
     const occupied = this.collidesWithShip(cellIndex, rowIndex, length, board, orientation)
     // its easier to make a copy of the playerShips (by spreading into ships)
     // change one ship in the object and then set state for the parent object
-    const ships = {...this.state.playerShips}
+    const ships = {...this.state.playerShips};
+    let selectedShip = {...this.state.selectedShip};
 
     if (this.state.playerShips[name].isPlaced === true) {
       alert("You have already placed this ship");
@@ -111,9 +112,11 @@ class Battleship extends Component {
         alert("You can not place a ship on top of another ship!");
         return
       } else {
-        board[rowIndex][cellIndex] = symbol;
-        for (var i = 1; i < length; i++) {
+        for (var i = 0; i < length; i++) {
           board[rowIndex][cellIndex + i] = symbol;
+          var cell = document.querySelector(`.playerBoard div[data-row-id=\"${rowIndex}\"] div[data-cell-id=\"${cellIndex + i}\"]`);
+          cell.classList.add("placed-HoverImage");
+          cell.classList.add(`placed-${selectedShip.name}-${i}`);
         }
       }
 
@@ -125,8 +128,7 @@ class Battleship extends Component {
         alert("You can not place a ship on top of another ship!");
         return
       } else {
-        board[rowIndex][cellIndex] = symbol;
-        for (var j = 1; j < length; j++) {
+        for (var j = 0; j < length; j++) {
           board[rowIndex + j][cellIndex] = symbol;
         }
       }
