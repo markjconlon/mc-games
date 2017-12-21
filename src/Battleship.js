@@ -383,8 +383,18 @@ class Battleship extends Component {
   }
 
   handleMouseLeave(e){
+    const boatClasses = [
+      "aircraftCarrier-0", "aircraftCarrier-1", "aircraftCarrier-2", "aircraftCarrier-3", "aircraftCarrier-4",
+      "battleship-0", "battleship-1", "battleship-2", "battleship-3",
+      "cruiser-0", "cruiser-1", "cruiser-2",
+      "submarine-0", "submarine-1", "submarine-2",
+      "destroyer-0", "destroyer-1",
+      "verticalImage", "hoverImage"
+    ]
     const list = Array.from(document.querySelectorAll(".hoverImage"));
-    list.map(node => node.classList.remove("hoverImage"));
+    boatClasses.map(function(boatClass){
+      list.map(node => node.classList.remove(`${boatClass}`));
+    });
   }
 
   render(){
