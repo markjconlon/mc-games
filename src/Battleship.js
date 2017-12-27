@@ -200,12 +200,27 @@ class Battleship extends Component {
     const playerBoard = [...this.state.playerBoard];
     let playerHealth = this.state.playerHealth;
     let moves = [...this.state.computerMoves];
+    let targetMode = this.state.computerTargetMode;
+    let computerTargetHits = [...this.state.computerTargetHits]
     const ships = {...this.state.playerShips};
     const shipNames = Object.keys(ships);
     const potentialMoves= [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [1, 0], [1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7], [1, 8], [1, 9], [2, 0], [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [2, 7], [2, 8], [2, 9], [3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [3, 6], [3, 7], [3, 8], [3, 9], [4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [4, 6], [4, 7], [4, 8], [4, 9], [5, 0], [5, 1], [5, 2], [5, 3], [5, 4], [5, 5], [5, 6], [5, 7], [5, 8], [5, 9], [6, 0], [6, 1], [6, 2], [6, 3], [6, 4], [6, 5], [6, 6], [6, 7], [6, 8], [6, 9], [7, 0], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5], [7, 6], [7, 7], [7, 8], [7, 9], [8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 6], [8, 7], [8, 8], [8, 9], [9, 0], [9, 1], [9, 2], [9, 3], [9, 4], [9, 5], [9, 6], [9, 7], [9, 8], [9, 9]]
     // takes the array of potentialMoves and subtracts all moves already made (which are stored in state)
     if (this.state.computerTargetMode) {
+      debugger
+      if (moves[-1][0] === computerTargetHits[-1][0] && moves[-1][1] === computerTargetHits[-1][1] ) {
+        // if last move was a hit find out the four potentialMoves, check if any of those moves have been made or if one is outside the board
+        // then try one of the leftovers
+        let targettedPossibleMoves = [
+          [computerTargetHits[-1][0], (computerTargetHits[-1][0] + 1)],
+          [computerTargetHits[-1][0], (computerTargetHits[-1][0] - 1)],
+          [computerTargetHits([-1][0] + 1), computerTargetHits[-1][0] ],
+          [computerTargetHits([-1][0] - 1), computerTargetHits[-1][0] ],
+        ];
+        console.log(targettedPossibleMoves);
+      } else {
 
+      }
     } else {
       let possibleMoves = potentialMoves.filter(function(move){
         return !(moves.some(function(oldMove){
@@ -224,9 +239,13 @@ class Battleship extends Component {
         });
         ships[shipName].hits += 1;
         playerHealth -= 1;
+        targetMode = true;
+        computerTargetHits.push([move[0], move[1]]);
         this.setState({
           playerShips: ships,
-          playerHealth: playerHealth
+          playerHealth: playerHealth,
+          computerTargetMode: targetMode,
+          computerTargetHits: computerTargetHits
         })
       } else {
         //eslint-disable-next-line
