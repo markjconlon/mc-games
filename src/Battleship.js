@@ -200,6 +200,7 @@ class Battleship extends Component {
     const playerBoard = [...this.state.playerBoard];
     let playerHealth = this.state.playerHealth;
     let moves = [...this.state.computerMoves];
+    let movesLast = moves.length - 1
     let targetMode = this.state.computerTargetMode;
     let computerTargetHits = [...this.state.computerTargetHits]
     const ships = {...this.state.playerShips};
@@ -208,14 +209,14 @@ class Battleship extends Component {
     // takes the array of potentialMoves and subtracts all moves already made (which are stored in state)
     if (this.state.computerTargetMode) {
       debugger
-      if (moves[-1][0] === computerTargetHits[-1][0] && moves[-1][1] === computerTargetHits[-1][1] ) {
+      if (movesLast[0] === computerTargetHits[computerTargetHits.length - 1][0] && movesLast[1] === computerTargetHits[computerTargetHits.length -1][1] ) {
         // if last move was a hit find out the four potentialMoves, check if any of those moves have been made or if one is outside the board
         // then try one of the leftovers
         let targettedPossibleMoves = [
-          [computerTargetHits[-1][0], (computerTargetHits[-1][0] + 1)],
-          [computerTargetHits[-1][0], (computerTargetHits[-1][0] - 1)],
-          [computerTargetHits([-1][0] + 1), computerTargetHits[-1][0] ],
-          [computerTargetHits([-1][0] - 1), computerTargetHits[-1][0] ],
+          [computerTargetHits[computerTargetHits.length -1][0], (computerTargetHits[computerTargetHits.length -1][0] + 1)],
+          [computerTargetHits[computerTargetHits.length -1][0], (computerTargetHits[computerTargetHits.length -1][0] - 1)],
+          [computerTargetHits([computerTargetHits.length -1][0] + 1), computerTargetHits[computerTargetHits.length -1][0] ],
+          [computerTargetHits([computerTargetHits.length -1][0] - 1), computerTargetHits[computerTargetHits.length -1][0] ],
         ];
         console.log(targettedPossibleMoves);
       } else {
